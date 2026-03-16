@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* React Flow controls — make buttons visible on dark background */
+.react-flow__controls-button {
+  background: #1e293b !important;
+  border: 1px solid #334155 !important;
+  fill: #e2e8f0 !important;
+  color: #e2e8f0 !important;
+}
+
+.react-flow__controls-button:hover {
+  background: #334155 !important;
+}
+
+.react-flow__controls-button svg {
+  fill: #e2e8f0 !important;
+}

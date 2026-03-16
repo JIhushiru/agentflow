@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: agentflow
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      AGENTFLOW_ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      AGENTFLOW_DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/agentflow
+      AGENTFLOW_REDIS_URL: redis://redis:6379/0
+    depends_on:
+      - postgres
+      - redis
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
